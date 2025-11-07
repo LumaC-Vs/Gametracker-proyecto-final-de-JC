@@ -1,0 +1,22 @@
+{
+    "sourceFile": "gametracker-backend/routes/games.js",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 1,
+            "patches": [
+                {
+                    "date": 1762272291897,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1762272486213,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -0,0 +1,87 @@\n+const express = require('express');\r\n+const router = express.Router();\r\n+const Game = require('../models/Game');\r\n+const Resena = require('../models/Resena');\r\n+\r\n+// 📍 GET: Obtener todos los juegos\r\n+router.get('/', async (req, res) => {\r\n+  try {\r\n+    const games = await Game.find().sort({ createdAt: -1 }); // Los más recientes primero\r\n+    res.json(games);\r\n+  } catch (error) {\r\n+    res.status(500).json({ message: 'Error al obtener los juegos', error });\r\n+  }\r\n+});\r\n+\r\n+// 📍 GET: Obtener un juego específico por ID\r\n+router.get('/:id', async (req, res) => {\r\n+  try {\r\n+    const game = await Game.findById(req.params.id);\r\n+    if (!game) {\r\n+      return res.status(404).json({ message: 'Juego no encontrado' });\r\n+    }\r\n+    res.json(game);\r\n+  } catch (error) {\r\n+    res.status(500).json({ message: 'Error al obtener el juego', error });\r\n+  }\r\n+});\r\n+\r\n+// 📘 GET: Obtener reseñas de un juego específico\r\n+router.get('/:id/resenas', async (req, res) => {\r\n+  try {\r\n+    const resenas = await Resena.find({ juegoId: req.params.id }).sort({ createdAt: -1 });\r\n+    res.json(resenas); // Devuelve array vacío si no hay reseñas\r\n+  } catch (error) {\r\n+    res.status(500).json({ message: 'Error al obtener las reseñas del juego', error });\r\n+  }\r\n+});\r\n+\r\n+// 📍 POST: Crear un nuevo juego\r\n+router.post('/', async (req, res) => {\r\n+  try {\r\n+    const nuevoJuego = new Game(req.body);\r\n+    const juegoGuardado = await nuevoJuego.save();\r\n+    res.status(201).json(juegoGuardado);\r\n+  } catch (error) {\r\n+    res.status(400).json({ message: 'Error al guardar el juego', error: error.message });\r\n+  }\r\n+});\r\n+\r\n+// 📍 PUT: Actualizar un juego existente\r\n+router.put('/:id', async (req, res) => {\r\n+  try {\r\n+    const juegoActualizado = await Game.findByIdAndUpdate(\r\n+      req.params.id, \r\n+      req.body, \r\n+      { new: true, runValidators: true }\r\n+    );\r\n+    if (!juegoActualizado) {\r\n+      return res.status(404).json({ message: 'Juego no encontrado' });\r\n+    }\r\n+    res.json(juegoActualizado);\r\n+  } catch (error) {\r\n+    res.status(400).json({ message: 'Error al actualizar el juego', error: error.message });\r\n+  }\r\n+});\r\n+\r\n+// 📍 DELETE: Eliminar un juego (y sus reseñas asociadas)\r\n+router.delete('/:id', async (req, res) => {\r\n+  try {\r\n+    const juegoEliminado = await Game.findByIdAndDelete(req.params.id);\r\n+    if (!juegoEliminado) {\r\n+      return res.status(404).json({ message: 'Juego no encontrado' });\r\n+    }\r\n+    \r\n+    // Eliminar también todas las reseñas asociadas a este juego\r\n+    await Resena.deleteMany({ juegoId: req.params.id });\r\n+    \r\n+    res.json({ \r\n+      message: 'Juego y sus reseñas eliminados correctamente',\r\n+      juego: juegoEliminado\r\n+    });\r\n+  } catch (error) {\r\n+    res.status(400).json({ message: 'Error al eliminar el juego', error: error.message });\r\n+  }\r\n+});\r\n+\r\n+module.exports = router;\n\\ No newline at end of file\n"
+                }
+            ],
+            "date": 1762272291897,
+            "name": "Commit-0",
+            "content": "// 📍 GET: Obtener todos los juegos\r\nrouter.get('/', async (req, res) => {\r\n  try {\r\n    console.log('🔍 Intentando obtener juegos...');\r\n    const games = await Game.find().sort({ createdAt: -1 });\r\n    console.log('✅ Juegos encontrados:', games.length);\r\n    res.json(games);\r\n  } catch (error) {\r\n    console.error('❌ ERROR completo:', error); // AGREGADO\r\n    console.error('❌ ERROR message:', error.message); // AGREGADO\r\n    console.error('❌ ERROR stack:', error.stack); // AGREGADO\r\n    res.status(500).json({ \r\n      message: 'Error al obtener los juegos', \r\n      error: error.message, // CAMBIADO\r\n      stack: error.stack // AGREGADO\r\n    });\r\n  }\r\n});"
+        }
+    ]
+}

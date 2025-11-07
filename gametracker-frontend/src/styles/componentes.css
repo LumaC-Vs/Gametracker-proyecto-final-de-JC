@@ -1,0 +1,21 @@
+.game-card {
+  background: #1e1e2f;
+  color: white;
+  border-radius: 15px;
+  overflow: hidden;
+  width: 220px;
+  text-align: center;
+  transition: transform 0.2s ease;
+  box-shadow: 0 5px 10px rgba(0,0,0,0.4);
+}
+.game-card:hover {
+  transform: scale(1.05);
+}
+.game-card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+.card-info {
+  padding: 10px;
+}
