@@ -15,6 +15,7 @@ function App() {
   const [favorites, setFavorites] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [gameToEdit, setGameToEdit] = useState(null);
+  const [resenaToEdit, setResenaToEdit] = useState(null);
   const [refreshKey, setRefreshKey] = useState(0);
 
   // Cargar favoritos desde localStorage
@@ -78,7 +79,18 @@ function App() {
 
   const handleResenaSuccess = () => {
     setRefreshKey(prev => prev + 1);
+    setResenaToEdit(null);
     alert('¡Reseña guardada exitosamente!');
+    setCurrentView('biblioteca');
+  };
+
+  const handleResenaUpdate = (resena) => {
+    setResenaToEdit(resena);
+    setCurrentView('agregar-resena');
+  };
+
+  const handleCancelResena = () => {
+    setResenaToEdit(null);
     setCurrentView('biblioteca');
   };
 
@@ -104,7 +116,9 @@ function App() {
       case 'biblioteca':
         return (
           <>
-            <HeroCarousel />
+            {games.length === 0 && !searchTerm ? (
+              <HeroCarousel />
+            ) : null}
             <SearchBar onSearch={handleSearch} />
             <GameList 
               games={filteredGames}
@@ -113,6 +127,7 @@ function App() {
               onEdit={handleEdit}
               onDelete={handleDelete}
               searchTerm={searchTerm}
+              onResenaUpdate={handleResenaUpdate}
             />
           </>
         );
@@ -134,6 +149,7 @@ function App() {
                 onToggleFavorite={toggleFavorite}
                 onEdit={handleEdit}
                 onDelete={handleDelete}
+                onResenaUpdate={handleResenaUpdate}
               />
             )}
           </>
@@ -151,8 +167,9 @@ function App() {
       case 'agregar-resena':
         return (
           <ResenaForm 
+            resenaToEdit={resenaToEdit}
             onSuccess={handleResenaSuccess}
-            onCancel={() => setCurrentView('biblioteca')}
+            onCancel={handleCancelResena}
           />
         );
 
@@ -202,8 +219,7 @@ function App() {
       />
       <main className="main-content">
         <header className="main-header">
-          <h1> 🎮GameVault🔒</h1>
-           <p>Tu bóveda de juegos</p>
+          <h1>🎮 Game Tracker</h1>
           <p>Organiza y reseña tus videojuegos favoritos</p>
         </header>
         <div className="content-area">
