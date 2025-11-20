@@ -33,7 +33,7 @@ function Sidebar({ currentView, onViewChange }) {
       </button>
       <aside className={`sidebar ${isOpen ? 'open' : 'closed'}`}>
         <div className="sidebar-header">
-          <h2>🎮 Game Tracker</h2>
+          <h2> 🔒Game Vault </h2>
         </div>
         <nav className="sidebar-nav">
           {menuItems.map(item => (
