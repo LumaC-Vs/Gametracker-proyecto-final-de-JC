@@ -1,15 +1,16 @@
 import { useState } from 'react';
 import { getGameResenas } from '../services/gameService';
 import { deleteGame } from '../services/gameService';
+import { deleteResena } from '../services/resenaService';
 
-function GameCard({ game, onEdit, onDelete, onToggleFavorite, isFavorite }) {
+function GameCard({ game, onEdit, onDelete, onToggleFavorite, isFavorite, onResenaUpdate }) {
   const [showResenas, setShowResenas] = useState(false);
   const [resenas, setResenas] = useState([]);
   const [loading, setLoading] = useState(false);
 
   const loadResenas = async () => {
-    if (resenas.length > 0) {
-      setShowResenas(!showResenas);
+    if (resenas.length > 0 && showResenas) {
+      setShowResenas(false);
       return;
     }
 
@@ -36,6 +37,25 @@ function GameCard({ game, onEdit, onDelete, onToggleFavorite, isFavorite }) {
         alert('Error al eliminar el juego');
       }
     }
+  };
+
+  const handleDeleteResena = async (resenaId) => {
+    if (window.confirm('¿Estás seguro de eliminar esta reseña?')) {
+      try {
+        await deleteResena(resenaId);
+        // Recargar reseñas
+        const data = await getGameResenas(game._id);
+        setResenas(data);
+        alert('Reseña eliminada correctamente');
+      } catch (error) {
+        console.error('Error al eliminar reseña:', error);
+        alert('Error al eliminar la reseña');
+      }
+    }
+  };
+
+  const handleEditResena = (resena) => {
+    onResenaUpdate(resena);
   };
 
   const renderStars = (puntuacion) => {
@@ -101,7 +121,7 @@ function GameCard({ game, onEdit, onDelete, onToggleFavorite, isFavorite }) {
 
       {showResenas && (
         <div className="resenas-section">
-          <h4>Reseñas</h4>
+          <h4>Reseñas ({resenas.length})</h4>
           {resenas.length === 0 ? (
             <p className="no-resenas">No hay reseñas todavía</p>
           ) : (
@@ -115,6 +135,22 @@ function GameCard({ game, onEdit, onDelete, onToggleFavorite, isFavorite }) {
                 <div className="resena-footer">
                   <span>🕐 {resena.horasJugadas}h</span>
                   <span>{resena.recomendaria ? '👍 Recomendado' : '👎 No recomendado'}</span>
+                </div>
+                <div className="resena-actions">
+                  <button 
+                    className="btn-edit-resena"
+                    onClick={() => handleEditResena(resena)}
+                    title="Editar reseña"
+                  >
+                    ✏️ Editar
+                  </button>
+                  <button 
+                    className="btn-delete-resena"
+                    onClick={() => handleDeleteResena(resena._id)}
+                    title="Eliminar reseña"
+                  >
+                    🗑️ Eliminar
+                  </button>
                 </div>
               </div>
             ))

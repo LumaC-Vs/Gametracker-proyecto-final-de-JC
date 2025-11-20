@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 import { getAllGames } from '../services/gameService';
-import { createResena } from '../services/resenaService';
+import { createResena, updateResena } from '../services/resenaService';
 
-function ResenaForm({ onSuccess, onCancel }) {
+function ResenaForm({ resenaToEdit = null, onSuccess, onCancel }) {
   const [games, setGames] = useState([]);
   const [formData, setFormData] = useState({
     juegoId: '',
@@ -18,6 +18,19 @@ function ResenaForm({ onSuccess, onCancel }) {
   useEffect(() => {
     loadGames();
   }, []);
+
+  useEffect(() => {
+    if (resenaToEdit) {
+      setFormData({
+        juegoId: resenaToEdit.juegoId._id || resenaToEdit.juegoId,
+        puntuacion: resenaToEdit.puntuacion,
+        textoResena: resenaToEdit.textoResena || '',
+        horasJugadas: resenaToEdit.horasJugadas,
+        dificultad: resenaToEdit.dificultad,
+        recomendaria: resenaToEdit.recomendaria,
+      });
+    }
+  }, [resenaToEdit]);
 
   const loadGames = async () => {
     try {
@@ -48,23 +61,33 @@ function ResenaForm({ onSuccess, onCancel }) {
       setLoading(true);
       setError(null);
 
-      await createResena({
+      const dataToSend = {
         ...formData,
         puntuacion: parseInt(formData.puntuacion),
         horasJugadas: parseInt(formData.horasJugadas),
-      });
+      };
+
+      if (resenaToEdit) {
+        await updateResena(resenaToEdit._id, dataToSend);
+        alert('¡Reseña actualizada exitosamente!');
+      } else {
+        await createResena(dataToSend);
+        alert('¡Reseña creada exitosamente!');
+      }
 
       onSuccess();
       
-      // Limpiar formulario
-      setFormData({
-        juegoId: '',
-        puntuacion: 5,
-        textoResena: '',
-        horasJugadas: 0,
-        dificultad: 'Normal',
-        recomendaria: true,
-      });
+      // Limpiar formulario si es nueva
+      if (!resenaToEdit) {
+        setFormData({
+          juegoId: '',
+          puntuacion: 5,
+          textoResena: '',
+          horasJugadas: 0,
+          dificultad: 'Normal',
+          recomendaria: true,
+        });
+      }
     } catch (err) {
       setError('Error al guardar la reseña: ' + err.message);
       console.error(err);
@@ -76,7 +99,7 @@ function ResenaForm({ onSuccess, onCancel }) {
   return (
     <div className="resena-form-container">
       <div className="form-header">
-        <h2>📝 Agregar Nueva Reseña</h2>
+        <h2>{resenaToEdit ? '✏️ Editar Reseña' : '📝 Agregar Nueva Reseña'}</h2>
         {onCancel && (
           <button className="btn-close" onClick={onCancel}>✕</button>
         )}
@@ -93,6 +116,7 @@ function ResenaForm({ onSuccess, onCancel }) {
             value={formData.juegoId}
             onChange={handleChange}
             required
+            disabled={resenaToEdit} // No se puede cambiar el juego al editar
           >
             <option value="">-- Elige un juego --</option>
             {games.map(game => (
@@ -178,7 +202,7 @@ function ResenaForm({ onSuccess, onCancel }) {
             className="btn-primary"
             disabled={loading}
           >
-            {loading ? 'Guardando...' : 'Publicar Reseña'}
+            {loading ? 'Guardando...' : (resenaToEdit ? 'Actualizar Reseña' : 'Publicar Reseña')}
           </button>
           {onCancel && (
             <button 
