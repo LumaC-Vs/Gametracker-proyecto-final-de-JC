@@ -1,0 +1,18 @@
+{
+    "sourceFile": "gametracker-frontend/src/components/GameList.jsx",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1763619777622,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1763619777622,
+            "name": "Commit-0",
+            "content": "import GameCard from './GameCard';\r\n\r\nfunction GameList({ games, favorites, onToggleFavorite, onEdit, onDelete, searchTerm, onResenaUpdate }) {\r\n  if (games.length === 0) {\r\n    return (\r\n      <div className=\"empty-state\">\r\n        {searchTerm ? (\r\n          <>\r\n            <p>😕 No se encontraron juegos con \"{searchTerm}\"</p>\r\n            <p>Intenta con otro término de búsqueda</p>\r\n          </>\r\n        ) : (\r\n          <>\r\n            <p>📚 No hay juegos en tu biblioteca todavía</p>\r\n            <p>¡Agrega tu primer juego usando el botón \"➕ Agregar Juego\"!</p>\r\n          </>\r\n        )}\r\n      </div>\r\n    );\r\n  }\r\n\r\n  return (\r\n    <div className=\"game-list\">\r\n      <h2 className=\"view-title\">\r\n        {searchTerm ? `Resultados para \"${searchTerm}\"` : '📚 Mi Biblioteca'}\r\n        <span className=\"game-count\">({games.length} juegos)</span>\r\n      </h2>\r\n      <div className=\"games-grid\">\r\n        {games.map(game => (\r\n          <GameCard \r\n            key={game._id} \r\n            game={game}\r\n            isFavorite={favorites.includes(game._id)}\r\n            onToggleFavorite={onToggleFavorite}\r\n            onEdit={onEdit}\r\n            onDelete={onDelete}\r\n            onResenaUpdate={onResenaUpdate}\r\n          />\r\n        ))}\r\n      </div>\r\n    </div>\r\n  );\r\n}\r\n\r\nexport default GameList;"
+        }
+    ]
+}

@@ -1,6 +1,6 @@
 import GameCard from './GameCard';
 
-function GameList({ games, favorites, onToggleFavorite, onEdit, onDelete, searchTerm }) {
+function GameList({ games, favorites, onToggleFavorite, onEdit, onDelete, searchTerm, onResenaUpdate }) {
   if (games.length === 0) {
     return (
       <div className="empty-state">
@@ -34,6 +34,7 @@ function GameList({ games, favorites, onToggleFavorite, onEdit, onDelete, search
             onToggleFavorite={onToggleFavorite}
             onEdit={onEdit}
             onDelete={onDelete}
+            onResenaUpdate={onResenaUpdate}
           />
         ))}
       </div>
