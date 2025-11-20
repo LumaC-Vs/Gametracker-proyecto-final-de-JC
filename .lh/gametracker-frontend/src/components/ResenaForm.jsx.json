@@ -3,11 +3,15 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 0,
+            "activePatchIndex": 1,
             "patches": [
                 {
                     "date": 1763615287563,
                     "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1763620218566,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -68,12 +68,10 @@\n       };\r\n \r\n       if (resenaToEdit) {\r\n         await updateResena(resenaToEdit._id, dataToSend);\r\n-        alert('¡Reseña actualizada exitosamente!');\r\n       } else {\r\n         await createResena(dataToSend);\r\n-        alert('¡Reseña creada exitosamente!');\r\n       }\r\n \r\n       onSuccess();\r\n       \r\n@@ -115,9 +113,9 @@\n             name=\"juegoId\"\r\n             value={formData.juegoId}\r\n             onChange={handleChange}\r\n             required\r\n-            disabled={resenaToEdit} // No se puede cambiar el juego al editar\r\n+            disabled={resenaToEdit}\r\n           >\r\n             <option value=\"\">-- Elige un juego --</option>\r\n             {games.map(game => (\r\n               <option key={game._id} value={game._id}>\r\n"
                 }
             ],
             "date": 1763615287563,
