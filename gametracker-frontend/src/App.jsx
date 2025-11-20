@@ -202,7 +202,8 @@ function App() {
       />
       <main className="main-content">
         <header className="main-header">
-          <h1>🎮 Game Tracker</h1>
+          <h1> 🎮GameVault🔒</h1>
+           <p>Tu bóveda de juegos</p>
           <p>Organiza y reseña tus videojuegos favoritos</p>
         </header>
         <div className="content-area">

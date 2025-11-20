@@ -48,7 +48,7 @@ function Sidebar({ currentView, onViewChange }) {
           ))}
         </nav>
         <div className="sidebar-footer">
-          <p>© 2025 Game Tracker</p>
+          <p>© 2025 GameVault</p>
         </div>
       </aside>
     </>
