@@ -107,16 +107,16 @@ function GameCard({ game, onEdit, onDelete, onToggleFavorite, isFavorite, onRese
             onClick={() => onEdit(game)}
             title="Editar juego"
           >
-            ✏️
-          </button>
+            <span>✏️</span>
+            </button>
+
           <button 
             className="btn-delete"
             onClick={handleDelete}
             title="Eliminar juego"
-            flex = "1"
-          >
-            🗑️
-          </button>
+            >
+              <span>🗑️</span>
+              </button>
         </div>
       </div>
 

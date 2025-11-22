@@ -551,6 +551,15 @@ body {
   cursor: pointer;
   font-size: 1.2rem;
   transition: all 0.3s ease;
+  display: grid;                    /* ← Cambia flex por grid */
+  place-items: center;              /* ← Esto centra perfectamente */
+  padding: 0;
+}
+
+.btn-edit span,
+.btn-delete span {
+  display: block;                   
+  line-height: 0;                   
 }
 
 .btn-edit {
@@ -793,6 +802,7 @@ body {
   opacity: 1;
   transform: scale(1.1);
 }
+
 
 .star-btn:hover {
   transform: scale(1.2);
