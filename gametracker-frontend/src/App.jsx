@@ -114,23 +114,21 @@ function App() {
   const renderContent = () => {
     switch (currentView) {
       case 'biblioteca':
-        return (
-          <>
-            {games.length === 0 && !searchTerm ? (
-              <HeroCarousel />
-            ) : null}
-            <SearchBar onSearch={handleSearch} />
-            <GameList 
-              games={filteredGames}
-              favorites={favorites}
-              onToggleFavorite={toggleFavorite}
-              onEdit={handleEdit}
-              onDelete={handleDelete}
-              searchTerm={searchTerm}
-              onResenaUpdate={handleResenaUpdate}
-            />
-          </>
-        );
+  return (
+    <>
+      <HeroCarousel />
+      <SearchBar onSearch={handleSearch} />
+      <GameList 
+        games={filteredGames}
+        favorites={favorites}
+        onToggleFavorite={toggleFavorite}
+        onEdit={handleEdit}
+        onDelete={handleDelete}
+        searchTerm={searchTerm}
+        onResenaUpdate={handleResenaUpdate}
+      />
+    </>
+  );
 
       case 'favoritos':
         const favoriteGames = games.filter(game => favorites.includes(game._id));
@@ -219,7 +217,7 @@ function App() {
       />
       <main className="main-content">
         <header className="main-header">
-          <h1>🎮 Game Tracker</h1>
+          <h1>🎮 Game Vault 🔒 </h1>
           <p>Organiza y reseña tus videojuegos favoritos</p>
         </header>
         <div className="content-area">

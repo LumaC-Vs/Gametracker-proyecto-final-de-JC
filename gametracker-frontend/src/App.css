@@ -18,6 +18,7 @@ body {
 }
 
 /* ========== SIDEBAR ========== */
+/* ========== SIDEBAR - ESTÁTICO ========== */
 .sidebar {
   width: 280px;
   background: rgba(22, 33, 62, 0.95);
@@ -28,48 +29,10 @@ body {
   position: fixed;
   left: 0;
   top: 0;
-  height: 100vh;
-  transition: transform 0.3s ease;
+  height: 100%;
   z-index: 1000;
   box-shadow: 4px 0 20px rgba(0, 0, 0, 0.5);
-}
-
-.sidebar.closed {
-  transform: translateX(-280px);
-}
-
-.sidebar-toggle {
-  position: fixed;
-  top: 20px;
-  width: 40px;
-  height: 40px;
-  background: rgba(0, 217, 255, 0.2);
-  border: 2px solid #00d9ff;
-  color: #00d9ff;
-  border-radius: 50%;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  z-index: 1001;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.2rem;
-}
-
-/* Posición cuando sidebar está abierto */
-.sidebar.open + .sidebar-toggle,
-.sidebar:not(.closed) + .sidebar-toggle {
-  left: 280px;
-}
-
-/* Posición cuando sidebar está cerrado */
-.sidebar.closed + .sidebar-toggle {
-  left: 20px;
-}
-
-.sidebar-toggle:hover {
-  background: rgba(0, 217, 255, 0.3);
-  transform: scale(1.1);
+  transition: transform 0.3s ease;
 }
 
 .sidebar-header {
@@ -914,8 +877,8 @@ body {
   .carousel-description {
     font-size: 1.3rem;
   }
+  
 }
-
 @media (max-width: 768px) {
   .main-content {
     margin-left: 0;
@@ -991,4 +954,6 @@ body {
   .resena-form-container {
     padding: 2rem;
   }
+
+  
 }

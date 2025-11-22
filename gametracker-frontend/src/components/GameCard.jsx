@@ -38,7 +38,7 @@ function GameCard({ game, onEdit, onDelete, onToggleFavorite, isFavorite, onRese
       }
     }
   };
-
+//Elimnar reseña
   const handleDeleteResena = async (resenaId) => {
     if (window.confirm('¿Estás seguro de eliminar esta reseña?')) {
       try {
@@ -113,6 +113,7 @@ function GameCard({ game, onEdit, onDelete, onToggleFavorite, isFavorite, onRese
             className="btn-delete"
             onClick={handleDelete}
             title="Eliminar juego"
+            flex = "1"
           >
             🗑️
           </button>
@@ -140,16 +141,16 @@ function GameCard({ game, onEdit, onDelete, onToggleFavorite, isFavorite, onRese
                   <button 
                     className="btn-edit-resena"
                     onClick={() => handleEditResena(resena)}
-                    title="Editar reseña"
+                   
                   >
-                    ✏️ Editar
+                    ✏️ 
                   </button>
                   <button 
                     className="btn-delete-resena"
                     onClick={() => handleDeleteResena(resena._id)}
-                    title="Eliminar reseña"
+                    
                   >
-                    🗑️ Eliminar
+                    🗑️ 
                   </button>
                 </div>
               </div>

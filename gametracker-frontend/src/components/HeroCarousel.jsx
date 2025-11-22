@@ -7,7 +7,7 @@ function HeroCarousel() {
     {
       id: 1,
       image: 'https://i.pinimg.com/1200x/71/50/e8/7150e83d3a245868a35a491e8edbeb32.jpg',
-      title: 'Bienvenido a Game Tracker',
+      title: 'Bienvenido a Game Vault',
       description: 'Organiza, reseña y descubre tus videojuegos favoritos en un solo lugar',
       buttonText: 'Explorar Biblioteca',
       buttonAction: 'biblioteca'

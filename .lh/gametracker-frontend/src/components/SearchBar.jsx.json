@@ -1,0 +1,18 @@
+{
+    "sourceFile": "gametracker-frontend/src/components/SearchBar.jsx",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1763775703326,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1763775703326,
+            "name": "Commit-0",
+            "content": "import { useState } from 'react';\r\n\r\nfunction SearchBar({ onSearch }) {\r\n  const [searchTerm, setSearchTerm] = useState('');\r\n\r\n  const handleSearch = (e) => {\r\n    const value = e.target.value;\r\n    setSearchTerm(value);\r\n    onSearch(value);\r\n  };\r\n\r\n  const clearSearch = () => {\r\n    setSearchTerm('');\r\n    onSearch('');\r\n  };\r\n\r\n  return (\r\n    <div className=\"search-bar\">\r\n      <div className=\"search-input-wrapper\">\r\n        <span className=\"search-icon\">🔍</span>\r\n        <input\r\n          type=\"text\"\r\n          placeholder=\"Buscar juegos por título, plataforma...\"\r\n          value={searchTerm}\r\n          onChange={handleSearch}\r\n          className=\"search-input\"\r\n        />\r\n        {searchTerm && (\r\n          <button className=\"clear-search\" onClick={clearSearch}>\r\n            ✕\r\n          </button>\r\n        )}\r\n      </div>\r\n    </div>\r\n  );\r\n}\r\n\r\nexport default SearchBar;"
+        }
+    ]
+}

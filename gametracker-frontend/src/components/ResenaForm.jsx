@@ -69,8 +69,10 @@ function ResenaForm({ resenaToEdit = null, onSuccess, onCancel }) {
 
       if (resenaToEdit) {
         await updateResena(resenaToEdit._id, dataToSend);
+        alert('¡Reseña actualizada exitosamente!');
       } else {
         await createResena(dataToSend);
+        alert('¡Reseña creada exitosamente!');
       }
 
       onSuccess();
@@ -114,7 +116,7 @@ function ResenaForm({ resenaToEdit = null, onSuccess, onCancel }) {
             value={formData.juegoId}
             onChange={handleChange}
             required
-            disabled={resenaToEdit}
+            disabled={resenaToEdit} // No se puede cambiar el juego al editar
           >
             <option value="">-- Elige un juego --</option>
             {games.map(game => (
